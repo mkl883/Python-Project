@@ -11,7 +11,7 @@ FILE_NAME = 'https://s3.amazonaws.com/tcmg476/http_access_log'
 fh = urllib.urlopen(FILE_NAME)
 print "This will take a while to compute, please stand by until the program is finished..."
 
-# Total requests 
+# Total requests
 print "Computing total requests..."
 fj = urllib.urlopen(FILE_NAME)
 total = 0
@@ -106,7 +106,7 @@ for line in fm:
 	elif "4" == parts[6][0]:
 		totalu += 1
 print "The total amount of unsuccessful requests is %d" % (totalu)
-percentu = totalu/total * 100
+percentu = (float(totalu))/(float(total)) * 100
 print "The percentage of unsucessful requests is " + str(percentu) + "%"
 
 # Redirected requests
@@ -121,7 +121,7 @@ for line in fn:
 	elif "3" == parts[6][0]:
 		totalr += 1
 print "The total amount of redirected requests is %d" % (totalr)
-percentr = totalr/total * 100
+percentr = (float(totalr))/(float(total)) * 100
 print "The percentage of redirected requests is " + str(percentr) + "%"
 
 # Most requested file
