@@ -47,7 +47,7 @@ for line in fk:
 			counter += 1
 			tempday = partsnext[1]
 
-# Requests per month
+# Requests per month, also saves in files by month
 print "Computing requests per month..."
 Oct, Nov, Dec, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep = 0,0,0,0,0,0,0,0,0,0,0,0
 for line in fh:
@@ -106,6 +106,8 @@ for line in fm:
 	elif "4" == parts[6][0]:
 		totalu += 1
 print "The total amount of unsuccessful requests is %d" % (totalu)
+percentu = totalu/total * 100
+print "The percentage of unsucessful requests is " + str(percentu) + "%"
 
 # Redirected requests
 print "Computing redirected requests..."
@@ -119,6 +121,8 @@ for line in fn:
 	elif "3" == parts[6][0]:
 		totalr += 1
 print "The total amount of redirected requests is %d" % (totalr)
+percentr = totalr/total * 100
+print "The percentage of redirected requests is " + str(percentr) + "%"
 
 # Most requested file
 print "Computing most requested and 10 least requested files..."
