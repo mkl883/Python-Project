@@ -1,5 +1,6 @@
 import urllib
 import re
+from collections import Counter
 
 URL_PATH = 'https://s3.amazonaws.com/tcmg476/http_access_log'
 LOCAL_FILE = 'local_copy.log'
@@ -118,4 +119,19 @@ for line in fn:
 	elif "3" == parts[6][0]:
 		totalr += 1
 print "The total amount of redirected requests is %d" % (totalr)
-			
+
+# Most requested file
+print "Computing most requested and 10 least requested files..."
+f0 = urllib.urlopen(FILE_NAME)
+totalr = 0
+templist = []
+for line in f0:
+	regex = re.compile(".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?)( HTTP.*\"|\") ([2-5]0[0-9]) .*")
+	parts = regex.split(line)
+	if len(parts) < 7:
+		temp = 0	
+	else:
+		templist.append(parts[4])
+c = Counter(templist)
+print ("The most requested file is " + str(c.most_common(1)))
+print ("Ten of the least requested files are " + str(c.most_common()[:-11:-1]))
