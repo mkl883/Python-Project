@@ -18,11 +18,13 @@ for line in fj:
 	total += 1
 print "The total amount of requests is %d" % (total)
 
-# Requests per day
+# Requests per day and week
 print "Computing requests per day and week..."
 fk = urllib.urlopen(FILE_NAME)
 tempday = "24/Oct/1994"
 daytotal = 0
+counter = 0
+weektotal = 0
 for line in fk:
 	regex = re.compile(".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?)( HTTP.*\"|\") ([2-5]0[0-9]) .*")
 	parts = regex.split(line)
@@ -32,9 +34,16 @@ for line in fk:
 	else:
 		if parts[1] == tempday:
 			daytotal += 1
+			if counter < 7:
+				weektotal += 1
+			else:
+				print ("Total requests for this week is " + str(weektotal))
+				counter = 0
+				weektotal = 0
 		else:
 			print ("Total number of requests for " + parts[1] + " is " + str(daytotal))
 			daytotal = 0
+			counter += 1
 			tempday = partsnext[1]
 
 # Requests per month
