@@ -92,4 +92,30 @@ print "Total requests for June are " + str(Jun)
 print "Total requests for July are " + str(Jul)
 print "Total requests for August are " + str(Aug)
 print "Total requests for September are " + str(Sep)
+
+# Unsuccessful requests
+print "Computing unsuccessful requests..."
+fm = urllib.urlopen(FILE_NAME)
+totalu = 0
+for line in fm:
+	regex = re.compile(".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?)( HTTP.*\"|\") ([2-5]0[0-9]) .*")
+	parts = regex.split(line)
+	if len(parts) < 7:
+		temp = 0
+	elif "4" == parts[6][0]:
+		totalu += 1
+print "The total amount of unsuccessful requests is %d" % (totalu)
+
+# Redirected requests
+print "Computing redirected requests..."
+fn = urllib.urlopen(FILE_NAME)
+totalr = 0
+for line in fn:
+	regex = re.compile(".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?)( HTTP.*\"|\") ([2-5]0[0-9]) .*")
+	parts = regex.split(line)
+	if len(parts) < 7:
+		temp = 0	
+	elif "3" == parts[6][0]:
+		totalr += 1
+print "The total amount of redirected requests is %d" % (totalr)
 			
